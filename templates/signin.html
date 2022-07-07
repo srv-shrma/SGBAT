@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    {% load static %}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Login Page</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/static/css/signin.css"
+    />
+    <link rel="shortcut icon" href="#" />
+    <style></style>
+  </head>
+  <body>
+    <div class="header">
+      <a href="/about" class="button" style="float: right">About our Project</a>
+      <a href="http://127.0.0.1:8000" class="button" style="float: left"
+        >Home</a
+      >
+      <center>
+        <br />
+        <br />
+        <h3>Enter your login details.</h3>
+        <h4>
+          Please make sure that you have first confirmed your account via the
+          confirmation E-mail that <br />
+          was sent to you after signing up on this website. You will be able to
+          login easily after that.
+        </h4>
+      </center>
+      <br />
+    </div>
+    <form action="/index" method="post">
+      {% csrf_token %}
+      <center>
+        <label for="">username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="enter username"
+          required
+        />
+      </center>
+      <br />
+      <center>
+        <label for="">password</label>
+        <input
+          type="password"
+          id="pass1"
+          name="pass1"
+          placeholder="enter password"
+          required
+        />
+      </center>
+      <br />
+      <center>
+        <button type="submit">login</button>
+      </center>
+    </form>
+    <br />
+    <br />
+    <br />
+    <center>
+      <a href="/signup">Don't have an account? Sign up here.</a>
+    </center>
+    <script src="" async defer></script>
+    <footer>
+      <p>Thank you for visiting our website.</p>
+      <a href="/adlogin" style="float: right"> Technician Login </a>
+    </footer>
+  </body>
+</html>
