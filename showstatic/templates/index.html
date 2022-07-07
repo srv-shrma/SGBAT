@@ -1,0 +1,118 @@
+<!--{% block content %}-->
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    {% load static %}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>System Generated Brain Analysis Report</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="\static\css\mystyle.css"
+    />
+    <link rel="shortcut icon" href="#" />
+    <style>
+      body {
+        background-color: white;
+      }
+      footer {
+        padding: 10px;
+        background-color: #1abc9c;
+        color: white;
+        margin: 0;
+        position: absolute;
+        bottom: 0;
+        width: 97.5%;
+      }
+    </style>
+  </head>
+  <body>
+    {% for message in messages %}
+    <div
+      class="alert alert- {{ message.tags }} alert-dismissable fade show"
+      role="alert"
+    >
+      <strong>message: </strong> {{ message }}
+      <!--the above will display a msg from the backend-->
+      <!--the following is so the user can close the message tag -->
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <!--class= close to close a msg from that button-->
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endfor %}
+    <div class="header">
+      <h1>System Generated Brain Analysis Report</h1>
+      <!--if user is not authenticated, we have to show sign up, sign in buttons to the user-->
+
+      {% if user.is_authenticated %}
+      <h3>Hello {{fname}}! You are successfully logged in!</h3>
+      <button type="submit" class="button" style="float: right">
+        <a href="/signout">sign out</a>
+      </button>
+
+      {% else %}
+      <button type="submit" class="button" style="float: right">
+        <a href="/signup">sign up </a>
+      </button>
+
+      <button type="submit" class="button" style="float: right">
+        <a href="/signin">sign in </a>
+      </button>
+      <button type="submit" class="button" style="float: left">
+        <a href="/about">About our Project</a>
+      </button>
+      {% endif %}
+
+      <br />
+    </div>
+    <p>
+      Concerned patients can view and download reports by logging in or signing
+      up first on this website. <br />
+    </p>
+
+    {% if user.is_authenticated %}
+    <center>
+      <p>Here is your report. View or download it as you like.</p>
+    </center>
+    {% else %}
+    <div class="img-container">
+      <img src="static/images/0.jpg" width="475" height="275" alt="Brain" />
+      <br />
+    </div>
+    {% endif%}
+    <br />
+    <br />
+    {% if user.is_authenticated %}
+    <center>
+      <button type="submit" class="button" style="float: center">
+        <a href="/viewreport">View your Report </a>
+      </button>
+
+      <button type="submit" class="button" style="float: center">
+        <a href="/downloadreport">Download your Report </a>
+      </button>
+    </center>
+    {% endif%}
+    <br />
+
+    <script src="" async defer></script>
+    <footer>
+      <p3> <center>Thank you for visiting our website.</center> </p3>
+    </footer>
+  </body>
+</html>
+{% endblock %}

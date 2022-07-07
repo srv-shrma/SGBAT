@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    {% load static %}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Technician Login Page</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/static/css/signin.css"
+    />
+    <link rel="shortcut icon" href="#" />
+    <style>
+      body {
+        background-color: white;
+        /*hsla(120, 60%, 70%, 0.3) */
+      }
+      h3 {
+        text-align: center;
+      }
+      h4 {
+        text-align: center;
+      }
+      a {
+        text-decoration: none;
+      }
+      a:hover {
+        color: black;
+        text-decoration: underline;
+      }
+      a:active {
+        color: blue;
+        text-decoration: none;
+      }
+      .button {
+        background-color: MediumSeaGreen;
+        padding: 2px 6px 2px 6px;
+        border-top: 1px solid #cccccc;
+        border-right: 1px solid #333333;
+        border-bottom: 1px solid #333333;
+        border-left: 1px solid #cccccc;
+        text-decoration: none;
+        font-size: 25px;
+        transition-duration: 0.4s;
+      }
+      .button:hover {
+        color: black;
+        text-decoration: underline;
+      }
+      a:hover {
+        color: black;
+        text-decoration: underline;
+      }
+      h1 {
+        text-align: center;
+      }
+      p {
+        text-align: center;
+      }
+      label {
+        display: block;
+        text-align: center;
+        line-height: 150%;
+        display: block;
+        width: 190px;
+      }
+      input[type="text"],
+      input[type="file"],
+      input[type="email"],
+      input[type="password"],
+      textarea {
+        width: 220px;
+        text-align: center;
+      }
+      .header {
+        padding: 10px;
+        background-color: #1abc9c;
+        color: white;
+        margin: 0;
+      }
+      footer {
+        padding: 10px;
+        background-color: #1abc9c;
+        color: white;
+        margin: 0;
+        position: absolute;
+        bottom: 0;
+        width: 97.5%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <center>
+        <h2>Login page for Technicians</h2>
+        <a href="http://127.0.0.1:8000" class="button">Home</a>
+        <h3>Enter your login details.</h3>
+      </center>
+      <br />
+    </div>
+    <form action="{% url 'adlogin' %}" method="post">
+      {% csrf_token %}
+      <center>
+        <label for="">username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="enter username"
+          required
+        />
+      </center>
+      <br />
+      <center>
+        <label for="">password</label>
+        <input
+          type="password"
+          id="pass1"
+          name="pass1"
+          placeholder="enter password"
+          required
+        />
+      </center>
+      <br />
+      <center>
+        <button type="submit">login</button>
+      </center>
+    </form>
+    <br />
+    <center>
+      <a href="/adhome"> technicianwrkspc </a>
+    </center>
+    <br />
+    <br />
+    <script src="" async defer></script>
+    <footer>
+      <p>Thank you for visiting our website.</p>
+    </footer>
+  </body>
+</html>
