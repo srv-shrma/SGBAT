@@ -281,8 +281,8 @@ def GENERATE_REPORT(user_name, file_path_1, file_path_2):
     id = user_name[-3:]
     result = result[0]
     for i in range(0, len(bandpower1)):
-        bandpower1[i] = round(bandpower1[i],3)
-        bandpower2[i] = round(bandpower2[i],3)
+        bandpower1[i] = round(bandpower1[i],4)
+        bandpower2[i] = round(bandpower2[i],4)
 
     bandpower1 = str(bandpower1)
     bandpower2 = str(bandpower2)
