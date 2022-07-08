@@ -60,9 +60,8 @@ tensorflow-cpu==2.9.1
 tensorflow-estimator==2.9.0
 tensorflow-io-gcs-filesystem==0.26.0
 termcolor==1.1.0
-torch==1.8.1 --no-cache-dir
+torch==1.9.0+cpu torchvision==0.10.0+cpu -f https://download.pytorch.org/whl/torch_stable.html
 torchaudio==0.11.0
-torchvision==0.9.1
 tqdm==4.64.0
 typing_extensions==4.2.0
 tzdata==2022.1
