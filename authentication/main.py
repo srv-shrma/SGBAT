@@ -347,4 +347,4 @@ def GET_SLEEP_STAGE(file1,file2):
     score = (lst.count(result)/6)*100
 
     # Result and Accuracy Score
-    return result,score
+    return result, score, X[0], X[1]

@@ -24,6 +24,7 @@ from .models import file_upload
 from .main import *
 from fpdf import FPDF
 from django.core.files.base import ContentFile, File
+# from math import round
 # import joblib
 # import keras
 # from tensorflow.python import tf2
@@ -273,46 +274,95 @@ def show_file(request):
 #    return render(request,'authentication/adhome.html')
 
 def GENERATE_REPORT(user_name, file_path_1, file_path_2):
-    result, acc = GET_SLEEP_STAGE(file_path_1, file_path_2)
+    result, acc, bandpower1, bandpower2 = GET_SLEEP_STAGE(file_path_1, file_path_2)
 
     print("Result : {}, Accuracy : {}", result, acc)
 
     id = user_name[-3:]
-    result = str(result)
+    result = result[0]
+    for i in range(0, len(bandpower1)):
+        bandpower1[i] = round(bandpower1[i],3)
+        bandpower2[i] = round(bandpower2[i],3)
+
+    bandpower1 = str(bandpower1)
+    bandpower2 = str(bandpower2)
     acc = str(acc)
-    return pdfgen(user_name, id, file_path_1, file_path_2, result, acc)
+    return pdfgen(user_name, id, file_path_1, file_path_2, bandpower1, bandpower2, result, acc)
 
 
-def pdfgen(user, id, file_path_1, file_path_2, result, acc):
-    pdf = FPDF()
+def pdfgen(user, id, file_path_1, file_path_2, bandpower1, bandpower2, result, acc):
+    # pdf = FPDF()
+    # pdf.add_page()
+    # pdf.set_font("Arial", size=20)
+    # pdf.cell(400, 50, txt="System Generated Brain Analysis Tool", ln=1, align="L")
+    # pdf.set_font("Arial", size=14)
+    # pdf.cell(200, 10, txt="Patient Name: "+user, ln=1, align="L")
+    # pdf.set_font("Arial", size=14)
+    # pdf.cell(200, 10, txt="Patient Id: "+id, ln=1, align="L")
+    # pdf.set_font("Arial", size=14)
+    # pdf.cell(200, 10, txt="Reference File 1: "+file_path_1, ln=1, align="L")
+    # pdf.set_font("Arial", size=14)
+    # pdf.cell(200, 10, txt="Reference File 2: "+file_path_2, ln=1, align="L")
+    # pdf.set_font("Arial", size=14)
+    # pdf.cell(500, 10, txt="Sleep Disorder Stage: "+result, ln=1, align="L")
+    # pdf.set_font("Arial", size=14)
+    # pdf.cell(500, 10, txt="Prediction level: "+acc, ln=1, align="L")
+    # pdf.set_font("Arial", size=14)
+    # pdf.cell(500, 10, txt="----------------------------------", ln=1, align="L")
+    # pdf.set_font("Arial", size=14)
+    # pdf.cell(500, 10, txt=" \" Stage 0: wakefulness", ln=1, align="L")
+    # pdf.set_font("Arial", size=14)
+    # pdf.cell(500, 10, txt=" Stage 1: light sleep", ln=1, align="L")
+    # pdf.set_font("Arial", size=14)
+    # pdf.cell(500, 10, txt=" Stage 2: deeper sleep", ln=1, align="L")
+    # pdf.set_font("Arial", size=14)
+    # pdf.cell(500, 10, txt=" Stage 3: deep sleep", ln=1, align="L")
+    # pdf.set_font("Arial", size=14)
+    # pdf.cell(500, 10, txt=" Stage 4: rapid eye movement \"", ln=1, align="L")
+    # pdf.output('buffer/'+user+'.pdf') 
+    stage = ["Wakefulness", "Light Sleep", "Deep Sleep", "Deeper Sleep", "Rapid Eye Movement"]
+    
+    pdf = FPDF(format='A4')
     pdf.add_page()
-    pdf.set_font("Arial", size=20)
-    pdf.cell(400, 50, txt="System Generated Brain Analysis Tool", ln=1, align="L")
-    pdf.set_font("Arial", size=14)
-    pdf.cell(200, 10, txt="Patient Name: "+user, ln=1, align="L")
-    pdf.set_font("Arial", size=14)
-    pdf.cell(200, 10, txt="Patient Id: "+id, ln=1, align="L")
-    pdf.set_font("Arial", size=14)
-    pdf.cell(200, 10, txt="Reference File 1: "+file_path_1, ln=1, align="L")
-    pdf.set_font("Arial", size=14)
-    pdf.cell(200, 10, txt="Reference File 2: "+file_path_2, ln=1, align="L")
-    pdf.set_font("Arial", size=14)
-    pdf.cell(500, 10, txt="Sleep Disorder Stage: "+result, ln=1, align="L")
-    pdf.set_font("Arial", size=14)
-    pdf.cell(500, 10, txt="Prediction level: "+acc, ln=1, align="L")
-    pdf.set_font("Arial", size=14)
-    pdf.cell(500, 10, txt="----------------------------------", ln=1, align="L")
-    pdf.set_font("Arial", size=14)
-    pdf.cell(500, 10, txt=" \" Stage 0: wakefulness", ln=1, align="L")
-    pdf.set_font("Arial", size=14)
-    pdf.cell(500, 10, txt=" Stage 1: light sleep", ln=1, align="L")
-    pdf.set_font("Arial", size=14)
-    pdf.cell(500, 10, txt=" Stage 2: deeper sleep", ln=1, align="L")
-    pdf.set_font("Arial", size=14)
-    pdf.cell(500, 10, txt=" Stage 3: deep sleep", ln=1, align="L")
-    pdf.set_font("Arial", size=14)
-    pdf.cell(500, 10, txt=" Stage 4: rapid eye movement \"", ln=1, align="L")
-    pdf.output('buffer/'+user+'.pdf')  
+     
+    #Add Header Section
+    pdf.image("images/icon.png",x=75,w=50,h=50)
+    pdf.set_font("Times", size=25,style="B")
+    pdf.cell(0,10,txt="System Generated Brain Analysis Tool", ln=2, align="C")
+    pdf.set_font("Times", size=15,style="B")
+    pdf.cell(0,15,txt="-"*75, ln=2, align="C")
+    
+    #Add Body
+    pdf.ln(5)
+    pdf.set_font("Times", size=15)
+    
+    pdf.cell(0, 15, txt="Patient Name : "+user, ln=1, align="C")
+    pdf.cell(0, 15, txt="Patient Id : "+id, ln=1, align="C")
+    pdf.cell(0, 15, txt="Path to File 1 : "+file_path_1, ln=1, align="C")
+    pdf.cell(0, 15, txt="Path to File 2 : "+file_path_2, ln=1, align="C")
+    pdf.cell(0, 15, txt="Computed Bandpower for Signal 1 : "+bandpower1, ln=1, align="C")
+    pdf.cell(0, 15, txt="Computed Bandpower for Signal 2 : "+bandpower2, ln=1, align="C")
+    pdf.cell(0, 15, txt="Convicted Sleep Stage : "+str(result), ln=1, align="C")
+    pdf.cell(0, 15, txt="Sleep Stage : "+stage[result], ln=1, align="C")
+    pdf.cell(0, 15, txt="Prediction Score : "+acc, ln=1, align="C")
+    
+    pdf.set_font("Times", size=12,style="B")
+    text = "0: Wakefulness; 1: Light Sleep; 2: Deep Sleep; 3: Deeper Sleep; 4: Rapid Eye Movement;"
+    pdf.cell(0, 10, txt="Result Reference - "+text, ln=1, align="C")
+        
+    #Add Footer Section
+    pdf.set_font("Times", size=15,style="B")
+    pdf.set_y(-60)
+    pdf.cell(0,txt="-"*75, ln=2, align="C")
+    pdf.set_y(-50)
+    pdf.cell(0,txt="Project by Aniket Agarwal, Shresth Mishra, Bhavya Jha, Sourabh Sharma", ln=2,align="C")
+    pdf.set_y(-40)
+    pdf.cell(0,txt="Under the guidance of Prof. Saikat Bandhopadhyay", ln=2,align="C")
+    pdf.set_y(-30)
+    pdf.cell(0,txt="Heritage Institue of Technology, Kolkata", ln=2,align="C")
+    
+    #Generate output file
+    pdf.output('buffer/'+user+'.pdf')   
     # f = request.FILES['buffer/'+user+'.pdf']  
     with open('buffer/'+user+'.pdf','rb') as f:
         newf = file_upload(file_name = user, my_file = File(f))
