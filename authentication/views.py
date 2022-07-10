@@ -286,6 +286,7 @@ def GENERATE_REPORT(user_name, file_path_1, file_path_2):
 
     bandpower1 = str(bandpower1)
     bandpower2 = str(bandpower2)
+    acc = round(acc, 2)
     acc = str(acc)
     return pdfgen(user_name, id, file_path_1, file_path_2, bandpower1, bandpower2, result, acc)
 
